@@ -14,22 +14,34 @@ export class Api {
         this.options = {
             headers: {
                 'Content-Type': 'application/json',
-                ...(options.headers as object ?? {})
-            }
+                'Accept': 'application/json',
+            },
+            mode: 'cors',
+            ...(options || {})
         };
     }
 
     protected handleResponse(response: Response): Promise<object> {
+        console.log('API Response status:', response.status);
         if (response.ok) return response.json();
         else return response.json()
             .then(data => Promise.reject(data.error ?? response.statusText));
     }
 
     get(uri: string) {
+        console.log('API Request:', this.baseUrl + uri);
         return fetch(this.baseUrl + uri, {
             ...this.options,
             method: 'GET'
-        }).then(this.handleResponse);
+        }).then(this.handleResponse)
+        .then(data => {
+            console.log('API Response data:', data);
+            return data;
+        })
+        .catch(error => {
+            console.error('API Error:', error);
+            throw error;
+        });
     }
 
     post(uri: string, data: object, method: ApiPostMethods = 'POST') {
