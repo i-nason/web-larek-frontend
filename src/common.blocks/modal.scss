@@ -3,15 +3,15 @@
 
 .modal {
   @include mixins.sublayer;
-  // height: max-content;
-  position: absolute;
+  position: fixed;
   display: none;
   justify-content: center;
+  align-items: center;
   background-color: $overlayBackground;
   z-index: 100;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
+  padding: 0;
   box-sizing: border-box;
+  overflow-y: auto;
 
   &_active {
     display: flex;
@@ -22,10 +22,12 @@
     @include mixins.flex(column);
     gap: $defaultPadding;
     background-color: $background;
-    // min-height: 90vmin;
     border-radius: 3rem;
     box-sizing: border-box;
     position: relative;
+    margin: auto;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   &__content {
@@ -59,7 +61,7 @@
   }
 
   &__message {
-    white-space:nowrap;
+    white-space: nowrap;
     max-width: 60%;
     text-overflow: ellipsis;
     overflow: hidden;

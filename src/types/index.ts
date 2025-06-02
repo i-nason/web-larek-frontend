@@ -5,7 +5,7 @@ export interface IProductAPI {
 	description: string;
 	image: string;
 	category: string;
-	price: number | null;
+	price: number;
 }
 
 // Внутренние типы приложения
@@ -17,7 +17,7 @@ export interface IProduct {
 	description: string;
 	image: string;
 	category: string;
-	price: number | null;
+	price: number;
 }
 
 // Товар в корзине
